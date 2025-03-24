@@ -1,1 +1,1 @@
-# Password-Generator
+# Django - Projects
