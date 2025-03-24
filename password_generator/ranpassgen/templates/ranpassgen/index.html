@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel = "stylesheet" type = "text/css" href = "{% static 'ranpassgen/styles.css' %}">
+
+    <title>Random Password Generator</title>
+</head>
+<body>
+    
+    
+    <div class="titleContainer">
+        <h1>Create Strong Passwords with Password Generator.</h1>
+    </div>
+    
+    <div class="card">
+        <h4>
+            Use the slider, and select from the options, below, 
+            to lengthen your password and strengthen your security.
+        </h4>
+        <form method="POST">
+            {% csrf_token %}
+
+            <p class = "lengthRange"><span id="lengthRange"></span></p>
+
+            {% for field in form%}
+            <div class="inputContainer">
+                {{ field.errors}}
+                {{ field.label_tag}} {{ field }}
+            {% endfor %}
+                
+            </div>
+            <button class="submitButton">Generate</button>
+        </form>
+    </div>
+
+    <script>
+        const slider = document.getElementById('lengthRangeInput')
+        let output = document.getElementById('lengthRange')
+        output.innerHTML = slider.value
+        //output.style.color = '#108288'
+        slider.oninput = function() {
+            if (this.value <=10){
+                // red
+                output.style.color = '#D3212C'
+                
+            } else if (this.value <20) {
+                // orange
+                output.style.color = '#FF681E'
+            } else {
+                output.style.color = '#006B3D'
+            }
+            output.innerHTML = this.value
+        }
+
+
+    </script>
+</body>
+
+</html>
